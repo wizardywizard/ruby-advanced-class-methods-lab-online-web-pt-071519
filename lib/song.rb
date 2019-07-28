@@ -42,12 +42,20 @@ def self.find_or_create_by_name(name)
 end
   
   def self.alphabetical
-    @@all.sort_by{|a, b| a <=> b}
+    @@all.sort_by{|song| song.name}
   end
 
+def self.new_from_filename(file_name)
+  song_artist = file_name.split(" - ")
+  song = self.new
+  song.name = song_artist[1].gsub(".mp3", "")
+  song.artist_name = song_artist[0]
+  song
+end
 
-
-
+def self.create_from_filename(file_name)
+  self.new_from_filename(file_name)
+end
 
 
 
